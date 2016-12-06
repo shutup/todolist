@@ -3,6 +3,7 @@ package com.shutup.model.persist;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,11 +25,12 @@ public class User {
     private Long  id;
 
     /** Model created at timestamp. */
-    @CreatedDate
+    @CreationTimestamp
     private Date createdAt;
 
     /** Model updated at timestamp. */
-    @LastModifiedDate
+
+    @UpdateTimestamp
     private Date updatedAt;
 
     @NotNull(message = "用户名不能为空")

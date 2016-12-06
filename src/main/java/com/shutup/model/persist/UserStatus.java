@@ -1,5 +1,7 @@
 package com.shutup.model.persist;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -16,11 +18,11 @@ public class UserStatus {
     private Long  id;
 
     /** Model created at timestamp. */
-    @CreatedDate
+    @CreationTimestamp
     private Date createdAt;
 
     /** Model updated at timestamp. */
-    @LastModifiedDate
+    @UpdateTimestamp
     private Date updatedAt;
 
     @Lob
