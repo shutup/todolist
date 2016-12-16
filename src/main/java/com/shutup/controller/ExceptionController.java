@@ -23,12 +23,12 @@ public class ExceptionController {
 
     @ExceptionHandler(value = AuthorizeFailException.class)
     public RestInfo HandleAuthorizeFailException(Exception ex) {
-        return new RestInfo(ex.getLocalizedMessage(),false, HttpStatus.UNAUTHORIZED);
+        return new RestInfo(ex.getLocalizedMessage(),false, HttpStatus.UNAUTHORIZED.value());
     }
 
     @ExceptionHandler(value = CustomException.class)
     public RestInfo HandleCustomException(CustomException ex) {
-        return new RestInfo(ex.getMsg(), ex.isStatus(), ex.getHttpStatus());
+        return new RestInfo(ex.getMsg(), ex.isStatus(), ex.getHttpStatus().value());
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -39,17 +39,17 @@ public class ExceptionController {
         }
         String finalMsg = stringBuilder.toString().substring(0, stringBuilder.toString().length() - 2);
         log.info("验证错误", finalMsg);
-        return new RestInfo(finalMsg,false,HttpStatus.BAD_REQUEST);
+        return new RestInfo(finalMsg,false,HttpStatus.BAD_REQUEST.value());
     }
 
     //@ExceptionHandler(value = Exception.class)
     public RestInfo HandleException(Exception ex) {
-        return new RestInfo("INTERNAL_SERVER_Exception",false, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new RestInfo("INTERNAL_SERVER_Exception",false, HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     //@ExceptionHandler(value = Error.class)
     public RestInfo HandleError(Error ex) {
-        return new RestInfo("INTERNAL_SERVER_Error",false, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new RestInfo("INTERNAL_SERVER_Error",false, HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
 }

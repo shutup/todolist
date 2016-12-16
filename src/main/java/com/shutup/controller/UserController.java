@@ -3,10 +3,12 @@ package com.shutup.controller;
 import com.shutup.model.persist.User;
 import com.shutup.model.request.UserLoginRequest;
 import com.shutup.model.request.UserRegisterRequest;
+import com.shutup.model.response.RestInfo;
 import com.shutup.model.response.UserLoginResponse;
 import com.shutup.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,12 +29,15 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(path = {"/register"},method = RequestMethod.POST)
-    public ResponseEntity<User> register(@Valid @RequestBody UserRegisterRequest userRegisterRequest){
+    public ResponseEntity<RestInfo> register(@Valid @RequestBody UserRegisterRequest userRegisterRequest){
         User user = userService.Register(userRegisterRequest);
+        RestInfo restInfo;
         if (user != null) {
-            return ResponseEntity.ok(user);
+            restInfo = new RestInfo("user create success", true, HttpStatus.CREATED.value());
+            return ResponseEntity.ok(restInfo);
         }else {
-            return null;
+            restInfo = new RestInfo("user create failed", false, HttpStatus.SERVICE_UNAVAILABLE.value());
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(restInfo);
         }
     }
 

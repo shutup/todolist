@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 public class RestInfo {
     private String msg;
     private boolean status;
-    private HttpStatus  httpStatus;
+    private int  httpStatus;
 
-    public RestInfo(String msg, boolean status, HttpStatus httpStatus) {
+    public RestInfo(String msg, boolean status, int httpStatus) {
         this.msg = msg;
         this.status = status;
         this.httpStatus = httpStatus;
@@ -32,11 +32,11 @@ public class RestInfo {
         this.status = status;
     }
 
-    public HttpStatus getHttpStatus() {
+    public int getHttpStatus() {
         return httpStatus;
     }
 
-    public void setHttpStatus(HttpStatus httpStatus) {
+    public void setHttpStatus(int httpStatus) {
         this.httpStatus = httpStatus;
     }
 }
