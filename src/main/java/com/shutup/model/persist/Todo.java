@@ -1,5 +1,6 @@
 package com.shutup.model.persist;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,6 +14,7 @@ import java.util.Date;
  * Created by shutup on 2016/12/3.
  */
 @Entity
+@JsonIgnoreProperties(value = {"user"})
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -11,6 +11,7 @@ import com.shutup.model.request.TodoUpdateRequest;
 import com.shutup.model.response.RestInfo;
 import com.shutup.model.response.TodoCreateResponse;
 import com.shutup.repo.TodoRepo;
+import com.shutup.repo.UserRepo;
 import com.shutup.repo.UserStatusRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,8 @@ public class TodoService {
     private TodoRepo todoRepo;
     @Autowired
     private UserStatusRepo userStatusRepo;
-
+    @Autowired
+    private UserRepo userRepo;
 
     public TodoCreateResponse CreateTodo(String token, TodoCreateRequest todoCreateRequest) {
         UserStatus userStatus = userStatusRepo.findByToken(token);
@@ -35,6 +37,9 @@ public class TodoService {
             Todo todo = TodoMapper.Instance.TodoCreateRequestToTodo(todoCreateRequest);
             todo.setUser(userStatus.getUser());
             Todo newTodo = todoRepo.save(todo);
+            User user = userStatus.getUser();
+            user.getTodoList().add(newTodo);
+            userRepo.save(user);
             if (newTodo != null) {
                 return TodoMapper.Instance.TodoToTodoCreateResponse(newTodo);
             }else {

@@ -10,6 +10,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,11 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExceptionController {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    @ResponseStatus
     @ExceptionHandler(value = AuthorizeFailException.class)
     public RestInfo HandleAuthorizeFailException(Exception ex) {
         return new RestInfo(ex.getLocalizedMessage(),false, HttpStatus.UNAUTHORIZED.value());
     }
 
+    @ResponseStatus
     @ExceptionHandler(value = CustomException.class)
     public RestInfo HandleCustomException(CustomException ex) {
         return new RestInfo(ex.getMsg(), ex.isStatus(), ex.getHttpStatus().value());

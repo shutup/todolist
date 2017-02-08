@@ -17,7 +17,7 @@ import java.util.List;
  * Created by shutup on 2016/12/3.
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true,value = {"password","todoList"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     @Id
